@@ -2,8 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 
-import '../model/superheroes/superheroes.dart';
-import '../service/http_service.dart';
+import '../../model/superheroes/superheroes.dart';
+import '../../service/http_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
