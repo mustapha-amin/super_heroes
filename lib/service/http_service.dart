@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:http/http.dart';
-import 'package:super_heroes/model/superheroes/superheroes.dart';
+import 'package:super_heroes/models/superheroes/superheroes.dart';
 
 const url = "https://akabab.github.io/superhero-api/api/all.json";
 

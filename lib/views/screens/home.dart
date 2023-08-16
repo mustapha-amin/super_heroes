@@ -1,9 +1,7 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 
-import '../../model/superheroes/superheroes.dart';
-import '../../service/http_service.dart';
+import '../../models/superheroes/superheroes.dart';
+import '../../../service/http_service.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -24,10 +22,13 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(),
-        body: Container(),
-        floatingActionButton: FloatingActionButton(onPressed: () {
+      appBar: AppBar(),
+      body: Container(),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
           HttpService().getSuperheroes();
-        }));
+        },
+      ),
+    );
   }
 }
