@@ -20,6 +20,7 @@ class _SearchScreenState extends State<SearchScreen> {
   List<SuperHero> searchList = [];
   String query = '';
   late TextEditingController controller;
+  FocusNode focusNode = FocusNode();
 
   void search(String query) {
     searchResult.clear();
@@ -27,11 +28,6 @@ class _SearchScreenState extends State<SearchScreen> {
       if (item.name!.toLowerCase().startsWith(query.toLowerCase()) &&
           controller.text.isNotEmpty) {
         searchResult.add(item);
-        // if (item.name!.startsWith(query)) {
-        //   item. == query
-        //       ? searchResult.insert(0, item)
-        //       : searchResult.insert(0, item);
-        // }
       }
     }
     setState(() {});
@@ -41,6 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     searchList = widget.superHeroes!;
     controller = TextEditingController();
+    focusNode.requestFocus();
     super.initState();
   }
 
@@ -68,7 +65,8 @@ class _SearchScreenState extends State<SearchScreen> {
                 hintStyle: MaterialStatePropertyAll(
                     kTextStyle(15, color: Colors.grey)),
                 controller: controller,
-                elevation: const MaterialStatePropertyAll(2),
+                focusNode: focusNode,
+                elevation: const MaterialStatePropertyAll(1),
                 onChanged: (_) => search(controller.text)),
           ),
           Expanded(

@@ -13,19 +13,20 @@ class SuperHeroCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      color: Colors.grey[300],
-      child: ListTile(
-        onTap: () {},
-        contentPadding: const EdgeInsets.all(8),
-        leading: CircleAvatar(
-          radius: 30,
-          backgroundImage: NetworkImage(superHero.images!.lg!),
-        ),
-        title: Text(
-          superHero.name!,
-          style: kTextStyle(20, fontWeight: FontWeight.bold),
-        ),
+    return ListTile(
+      onTap: () {},
+      leading: CircleAvatar(
+        radius: 25,
+        backgroundImage: NetworkImage(superHero.images!.lg!),
+      ),
+      title: Text(
+        superHero.name!,
+        style: kTextStyle(20, fontWeight: FontWeight.bold),
+      ),
+      subtitle: Text(superHero.biography!.publisher!),
+      trailing: const Icon(
+        Icons.info_outline_rounded,
+        color: Colors.grey,
       ),
     );
   }

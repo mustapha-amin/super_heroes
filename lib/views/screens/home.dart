@@ -58,7 +58,7 @@ class _HomeState extends State<Home> {
             )
           : ListView.builder(
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10),
+              padding: const EdgeInsets.symmetric(horizontal: 3),
               itemCount: superHeroesProvider.superHeroes!.length,
               itemBuilder: (context, index) {
                 SuperHero superHero = superHeroesProvider.superHeroes![index];
