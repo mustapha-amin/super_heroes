@@ -21,7 +21,6 @@ class _HomeState extends State<Home> {
     "All",
     "Marvel Comics",
     "DC Comics",
-    "Dark Horse Comics"
   ];
 
   @override
@@ -110,7 +109,6 @@ class _HomeState extends State<Home> {
                           )
                         ],
                       ),
-                      
                     ],
                   ),
                 ),
