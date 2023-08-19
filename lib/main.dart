@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:super_heroes/providers/segmented_btn_controller.dart';
 import 'package:super_heroes/providers/superhero_provider.dart';
 import 'package:super_heroes/views/screens/home.dart';
 import 'package:provider/provider.dart';
@@ -9,9 +10,13 @@ void main() {
       useMaterial3: true,
     ),
     debugShowCheckedModeBanner: false,
-    home: ChangeNotifierProvider(
-      create: (_) => SuperHeroesProvider(),
-      child: const Home(),
-    ),
+    home: MultiProvider(providers: [
+      ChangeNotifierProvider(
+        create: (_) => SuperHeroesProvider(),
+      ),
+      ChangeNotifierProvider(
+        create: (_) => SegmentedButtonController(),
+      ),
+    ], child: const Home()),
   ));
 }

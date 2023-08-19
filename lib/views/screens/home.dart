@@ -5,6 +5,7 @@ import 'package:super_heroes/utils/extensions.dart';
 import 'package:super_heroes/utils/navigation.dart';
 import 'package:super_heroes/utils/textstyle.dart';
 import 'package:super_heroes/views/screens/search_screen.dart';
+import 'package:super_heroes/views/widgets/segmented_button.dart';
 import '../../providers/superhero_provider.dart';
 import '../widgets/superhero_card.dart';
 
@@ -16,7 +17,8 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  int index = 0;
+  int chipIndex = 0;
+  bool maleIsSelected = true;
   List<String> categories = [
     "All",
     "Marvel Comics",
@@ -36,8 +38,9 @@ class _HomeState extends State<Home> {
     var superHeroesProvider = Provider.of<SuperHeroesProvider>(context);
 
     return Scaffold(
+      backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: const Color(0xFFF6F6F6),
         elevation: 0,
         title: Text(
           "SuperHeroes",
@@ -76,7 +79,7 @@ class _HomeState extends State<Home> {
           : Column(
               children: [
                 SizedBox(
-                  height: context.screenHeight * .20,
+                  height: context.screenHeight * .25,
                   child: Column(
                     children: [
                       Wrap(
@@ -86,7 +89,7 @@ class _HomeState extends State<Home> {
                             (category) => ChoiceChip(
                               elevation: 3,
                               side: BorderSide(
-                                width: index == categories.indexOf(category)
+                                width: chipIndex == categories.indexOf(category)
                                     ? 1
                                     : 0,
                                 color: const Color(0xFFBFBFBF),
@@ -97,18 +100,20 @@ class _HomeState extends State<Home> {
                                 borderRadius: BorderRadius.circular(24),
                               ),
                               label: Text(category),
-                              selected: index == categories.indexOf(category),
+                              selected:
+                                  chipIndex == categories.indexOf(category),
                               onSelected: (selected) {
                                 setState(() {
-                                  index = selected
+                                  chipIndex = selected
                                       ? categories.indexOf(category)
-                                      : index;
+                                      : chipIndex;
                                 });
                               },
                             ),
                           )
                         ],
                       ),
+                      const CustomSegmentedButton()
                     ],
                   ),
                 ),
