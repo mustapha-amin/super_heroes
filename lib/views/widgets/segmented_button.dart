@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_heroes/providers/segmented_btn_controller.dart';
-
+import '../../utils/extensions.dart';
 import '../../utils/textstyle.dart';
 
 class CustomSegmentedButton extends StatelessWidget {
@@ -12,14 +12,14 @@ class CustomSegmentedButton extends StatelessWidget {
     var sButtonController = Provider.of<SegmentedButtonController>(context);
     bool maleIsSelected = sButtonController.maleIsSelected;
     return Container(
-      margin: const EdgeInsets.all(8),
-      padding: const EdgeInsets.all(3),
+      width: context.screenWidth * .5,
+      padding: const EdgeInsets.all(0.5),
       decoration: BoxDecoration(
         border: Border.all(
-          color: Color(0xFFBFBFBF),
-          width: 2,
+          color: const Color(0xFF87650D),
+          width: 1,
         ),
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(14),
       ),
       child: Row(
         children: [
@@ -33,10 +33,15 @@ class CustomSegmentedButton extends StatelessWidget {
               child: Card(
                 elevation: maleIsSelected ? 1 : 0,
                 color: maleIsSelected
-                    ? const Color(0xFFFFF1CB)
+                    ? const Color(0xFFFFF7E2)
                     : const Color(0xFFF6F6F6),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  side: maleIsSelected
+                      ? const BorderSide(
+                          width: 1,
+                        )
+                      : BorderSide.none,
+                  borderRadius: BorderRadius.circular(10),
                 ),
                 child: SizedBox(
                   height: 40,
@@ -60,10 +65,15 @@ class CustomSegmentedButton extends StatelessWidget {
               child: Card(
                 elevation: maleIsSelected ? 0 : 1,
                 color: !maleIsSelected
-                    ? const Color(0xFFFFF1CB)
+                    ? const Color(0xFFFFF7E2)
                     : const Color(0xFFF6F6F6),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(8),
+                  side: !maleIsSelected
+                      ? const BorderSide(
+                          width: 1,
+                        )
+                      : BorderSide.none,
                 ),
                 child: SizedBox(
                   height: 40,
