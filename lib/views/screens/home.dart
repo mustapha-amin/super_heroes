@@ -54,7 +54,6 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     var superHeroesProvider = Provider.of<SuperHeroesProvider>(context);
     var segmentedBtnCtrl = Provider.of<SegmentedButtonController>(context);
-
     return Scaffold(
       backgroundColor: const Color(0xFFF6F6F6),
       appBar: AppBar(
@@ -101,35 +100,79 @@ class _HomeState extends State<Home> {
               children: [
                 Column(
                   children: [
-                    Wrap(
-                      spacing: 8,
-                      children: [
-                        ...categories.map(
-                          (category) => ChoiceChip(
-                            elevation: 3,
-                            side: BorderSide(
-                              width: chipIndex == categories.indexOf(category)
-                                  ? 1
-                                  : 0,
-                              color: const Color(0xFFBFBFBF),
-                            ),
-                            selectedColor: const Color(0xFFFFF1CB),
-                            backgroundColor: Colors.white,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24),
-                            ),
-                            label: Text(category),
-                            selected: chipIndex == categories.indexOf(category),
-                            onSelected: (selected) {
-                              setState(() {
-                                chipIndex = selected
-                                    ? categories.indexOf(category)
-                                    : chipIndex;
-                              });
-                            },
-                          ),
-                        )
-                      ],
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Row(
+                          children: [
+                            ...categories.map(
+                              (category) => Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(horizontal: 3),
+                                child: ChoiceChip(
+                                  elevation: 3,
+                                  side: BorderSide(
+                                    width: chipIndex ==
+                                            categories.indexOf(category)
+                                        ? 1
+                                        : 0,
+                                    color: const Color(0xFFBFBFBF),
+                                  ),
+                                  selectedColor: const Color(0xFFFFF1CB),
+                                  backgroundColor: Colors.white,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24),
+                                  ),
+                                  label: Text(category),
+                                  selected:
+                                      chipIndex == categories.indexOf(category),
+                                  onSelected: (selected) {
+                                    setState(() {
+                                      chipIndex = selected
+                                          ? categories.indexOf(category)
+                                          : chipIndex;
+                                    });
+
+                                    switch (chipIndex) {
+                                      case 0:
+                                        superHeroesProvider.sort(
+                                            superHeroesProvider.superHeroes!);
+                                        break;
+                                      case 1:
+                                        superHeroesProvider.sort(
+                                            superHeroesProvider
+                                                .superHeroes!
+                                                .where((hero) =>
+                                                    hero.biography!.publisher ==
+                                                    'Marvel Comics')
+                                                .toList());
+                                        break;
+                                      case 2:
+                                        superHeroesProvider.sort(
+                                            superHeroesProvider
+                                                .superHeroes!
+                                                .where((hero) =>
+                                                    hero.biography!.publisher ==
+                                                    'DC Comics')
+                                                .toList());
+                                        break;
+                                      default:
+                                        superHeroesProvider.sort(
+                                            superHeroesProvider
+                                                .superHeroes!
+                                                .where((hero) =>
+                                                    hero.biography!.publisher ==
+                                                    'Dark Horse Comics')
+                                                .toList());
+                                    }
+                                  },
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
                     ),
                     const SizedBox(
                       height: 8,
@@ -143,20 +186,20 @@ class _HomeState extends State<Home> {
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 3),
                     itemCount: segmentedBtnCtrl.maleIsSelected
-                        ? superHeroesProvider.superHeroes!
+                        ? superHeroesProvider.sortedSuperHeroes!
                             .where((hero) => hero.appearance!.gender == "Male")
                             .length
-                        : superHeroesProvider.superHeroes!
+                        : superHeroesProvider.sortedSuperHeroes!
                             .where(
                                 (hero) => hero.appearance!.gender == "Female")
                             .length,
                     itemBuilder: (context, index) {
                       SuperHero superHero = segmentedBtnCtrl.maleIsSelected
-                          ? superHeroesProvider.superHeroes!
+                          ? superHeroesProvider.sortedSuperHeroes!
                               .where(
                                   (hero) => hero.appearance!.gender == "Male")
                               .toList()[index]
-                          : superHeroesProvider.superHeroes!
+                          : superHeroesProvider.sortedSuperHeroes!
                               .where(
                                   (hero) => hero.appearance!.gender == "Female")
                               .toList()[index];
