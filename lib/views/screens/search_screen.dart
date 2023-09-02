@@ -1,9 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 import 'package:super_heroes/models/superhero.dart';
-import 'package:super_heroes/providers/superhero_provider.dart';
 import 'package:super_heroes/utils/textstyle.dart';
 import 'package:super_heroes/views/widgets/superhero_card.dart';
 
@@ -20,7 +16,6 @@ class _SearchScreenState extends State<SearchScreen> {
   List<SuperHero> searchList = [];
   String query = '';
   late TextEditingController controller;
-  FocusNode focusNode = FocusNode();
 
   void search(String query) {
     searchResult.clear();
@@ -37,7 +32,7 @@ class _SearchScreenState extends State<SearchScreen> {
   void initState() {
     searchList = widget.superHeroes!;
     controller = TextEditingController();
-    focusNode.requestFocus();
+
     super.initState();
   }
 
@@ -45,29 +40,50 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      appBar: AppBar(
+        foregroundColor: const Color(0xFFB18C27),
+        title: Text(
+          "SuperHero",
+          style: kTextStyle(28,
+              fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
+        ),
+        centerTitle: true,
+      ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 30,
-          ),
           SizedBox(
             width: size.width * .9,
-            height: size.height / 13,
-            child: SearchBar(
-                shape: const MaterialStatePropertyAll(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(15),
+            height: 40,
+            child: Hero(
+              tag: 'search',
+              child: SearchBar(
+                  textStyle: MaterialStatePropertyAll(
+                    kTextStyle(14),
+                  ),
+                  trailing: [
+                    Image.asset('assets/search.png'),
+                  ],
+                  backgroundColor:
+                      const MaterialStatePropertyAll(Color(0xFFFFF1CB)),
+                  shape: const MaterialStatePropertyAll(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(36),
+                      ),
                     ),
                   ),
-                ),
-                hintText: "super hero",
-                hintStyle: MaterialStatePropertyAll(
-                    kTextStyle(15, color: Colors.grey)),
-                controller: controller,
-                focusNode: focusNode,
-                elevation: const MaterialStatePropertyAll(1),
-                onChanged: (_) => search(controller.text)),
+                  hintText: "Search Superhero",
+                  hintStyle: MaterialStatePropertyAll(
+                    kTextStyle(
+                      16,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  controller: controller,
+                  elevation: const MaterialStatePropertyAll(1),
+                  onChanged: (_) => search(controller.text)),
+            ),
           ),
           Expanded(
             child: ListView.builder(

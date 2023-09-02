@@ -7,6 +7,7 @@ TextStyle kTextStyle(
   Color? color,
 }) {
   return GoogleFonts.lato(
+    
     fontSize: size,
     fontWeight: fontWeight ?? FontWeight.normal,
     color: color ?? Colors.black,

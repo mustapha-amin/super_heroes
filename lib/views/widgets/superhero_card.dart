@@ -23,7 +23,7 @@ class SuperHeroCard extends StatelessWidget {
         superHero.name!,
         style: kTextStyle(20, fontWeight: FontWeight.bold),
       ),
-      subtitle: Text(superHero.biography!.publisher!),
+      subtitle: Text(superHero.biography!.publisher ?? ''),
       trailing: const Icon(
         Icons.info_outline_rounded,
         color: Colors.grey,

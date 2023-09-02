@@ -14,7 +14,7 @@ class HttpService {
       List<dynamic> json = jsonDecode(response.body);
       List<SuperHero> superheroes =
           json.map((hero) => SuperHero.fromJson(hero)).toList();
-      log(response.body);
+      // log(response.body);
       return superheroes;
     } else {
       throw ("Cant get data");

@@ -7,6 +7,7 @@ import 'package:super_heroes/utils/textstyle.dart';
 import 'package:super_heroes/views/screens/search_screen.dart';
 import 'package:super_heroes/views/widgets/segmented_button.dart';
 import '../../providers/superhero_provider.dart';
+import '../../providers/segmented_btn_controller.dart';
 import '../widgets/superhero_card.dart';
 
 class Home extends StatefulWidget {
@@ -17,12 +18,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  late ScrollController _scrollController = ScrollController();
   int chipIndex = 0;
   bool maleIsSelected = true;
+  bool _fabVisible = false;
   List<String> categories = [
     "All",
     "Marvel Comics",
     "DC Comics",
+    "Dark Horse Comics"
   ];
 
   @override
@@ -30,12 +34,26 @@ class _HomeState extends State<Home> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<SuperHeroesProvider>().fetchSuperheroes();
     });
+    _scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  void _scrollListener() {
+    if (_scrollController.offset > 100) {
+      setState(() {
+        _fabVisible = false;
+      });
+    } else {
+      setState(() {
+        _fabVisible = true;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     var superHeroesProvider = Provider.of<SuperHeroesProvider>(context);
+    var segmentedBtnCtrl = Provider.of<SegmentedButtonController>(context);
 
     return Scaffold(
       backgroundColor: const Color(0xFFF6F6F6),
@@ -48,24 +66,27 @@ class _HomeState extends State<Home> {
               fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
         ),
         actions: [
-          GestureDetector(
-            onTap: () => navigateTo(
-                context,
-                SearchScreen(
-                  superHeroes: superHeroesProvider.superHeroes,
-                )),
-            child: Container(
-              width: 35,
-              margin: const EdgeInsets.only(right: 20),
-              //padding: const EdgeInsets.all(5),
-              decoration: const BoxDecoration(
-                shape: BoxShape.circle,
-                color: Color(0xFFFFF1CB),
-              ),
-              child: Center(
-                child: Image.asset(
-                  'assets/search.png',
-                  width: 25,
+          Hero(
+            tag: 'search',
+            child: GestureDetector(
+              onTap: () => navigateTo(
+                  context,
+                  SearchScreen(
+                    superHeroes: superHeroesProvider.superHeroes,
+                  )),
+              child: Container(
+                width: 35,
+                margin: const EdgeInsets.only(right: 20),
+                //padding: const EdgeInsets.all(5),
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Color(0xFFFFF1CB),
+                ),
+                child: Center(
+                  child: Image.asset(
+                    'assets/search.png',
+                    width: 25,
+                  ),
                 ),
               ),
             ),
@@ -78,53 +99,68 @@ class _HomeState extends State<Home> {
             )
           : Column(
               children: [
-                SizedBox(
-                  height: context.screenHeight * .25,
-                  child: Column(
-                    children: [
-                      Wrap(
-                        spacing: 8,
-                        children: [
-                          ...categories.map(
-                            (category) => ChoiceChip(
-                              elevation: 3,
-                              side: BorderSide(
-                                width: chipIndex == categories.indexOf(category)
-                                    ? 1
-                                    : 0,
-                                color: const Color(0xFFBFBFBF),
-                              ),
-                              selectedColor: const Color(0xFFFFF1CB),
-                              backgroundColor: Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(24),
-                              ),
-                              label: Text(category),
-                              selected:
-                                  chipIndex == categories.indexOf(category),
-                              onSelected: (selected) {
-                                setState(() {
-                                  chipIndex = selected
-                                      ? categories.indexOf(category)
-                                      : chipIndex;
-                                });
-                              },
+                Column(
+                  children: [
+                    Wrap(
+                      spacing: 8,
+                      children: [
+                        ...categories.map(
+                          (category) => ChoiceChip(
+                            elevation: 3,
+                            side: BorderSide(
+                              width: chipIndex == categories.indexOf(category)
+                                  ? 1
+                                  : 0,
+                              color: const Color(0xFFBFBFBF),
                             ),
-                          )
-                        ],
-                      ),
-                      const CustomSegmentedButton()
-                    ],
-                  ),
+                            selectedColor: const Color(0xFFFFF1CB),
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            label: Text(category),
+                            selected: chipIndex == categories.indexOf(category),
+                            onSelected: (selected) {
+                              setState(() {
+                                chipIndex = selected
+                                    ? categories.indexOf(category)
+                                    : chipIndex;
+                              });
+                            },
+                          ),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const CustomSegmentedButton()
+                  ],
                 ),
                 Expanded(
                   child: ListView.builder(
+                    controller: _scrollController,
                     physics: const BouncingScrollPhysics(),
                     padding: const EdgeInsets.symmetric(horizontal: 3),
-                    itemCount: superHeroesProvider.superHeroes!.length,
+                    itemCount: segmentedBtnCtrl.maleIsSelected
+                        ? superHeroesProvider.superHeroes!
+                            .where((hero) => hero.appearance!.gender == "Male")
+                            .length
+                        : superHeroesProvider.superHeroes!
+                            .where(
+                                (hero) => hero.appearance!.gender == "Female")
+                            .length,
                     itemBuilder: (context, index) {
-                      SuperHero superHero =
-                          superHeroesProvider.superHeroes![index];
+                      SuperHero superHero = segmentedBtnCtrl.maleIsSelected
+                          ? superHeroesProvider.superHeroes!
+                              .where(
+                                  (hero) => hero.appearance!.gender == "Male")
+                              .toList()[index]
+                          : superHeroesProvider.superHeroes!
+                              .where(
+                                  (hero) => hero.appearance!.gender == "Female")
+                              .toList()[index];
+
                       return SuperHeroCard(
                         superHero: superHero,
                       );
@@ -132,6 +168,18 @@ class _HomeState extends State<Home> {
                   ),
                 ),
               ],
+            ),
+      floatingActionButton: _fabVisible
+          ? const SizedBox()
+          : FloatingActionButton(
+              elevation: 2,
+              backgroundColor: const Color(0xFFFFF1CB),
+              onPressed: () {
+                _scrollController.animateTo(0.0,
+                    duration: const Duration(seconds: 1),
+                    curve: Curves.fastEaseInToSlowEaseOut);
+              },
+              child: const Icon(Icons.arrow_upward_rounded),
             ),
     );
   }
