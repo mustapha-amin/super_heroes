@@ -7,7 +7,6 @@ import 'package:super_heroes/models/superhero.dart';
 const url = "https://akabab.github.io/superhero-api/api/all.json";
 
 class HttpService {
-  
   static Future<List<SuperHero>?> getSuperheroes() async {
     Response response = await get(Uri.parse(url));
     if (response.statusCode == 200) {
@@ -20,5 +19,4 @@ class HttpService {
       throw ("Cant get data");
     }
   }
-
 }

@@ -1,9 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:super_heroes/models/superhero.dart';
 import 'package:super_heroes/utils/extensions.dart';
 import 'package:super_heroes/utils/navigation.dart';
 import 'package:super_heroes/utils/textstyle.dart';
+import 'package:super_heroes/views/screens/detailed_screen.dart';
 import 'package:super_heroes/views/screens/search_screen.dart';
 import 'package:super_heroes/views/widgets/segmented_button.dart';
 import '../../providers/superhero_provider.dart';
@@ -182,33 +185,33 @@ class _HomeState extends State<Home> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                    controller: _scrollController,
-                    physics: const BouncingScrollPhysics(),
-                    padding: const EdgeInsets.symmetric(horizontal: 3),
-                    itemCount: segmentedBtnCtrl.maleIsSelected
-                        ? superHeroesProvider.sortedSuperHeroes!
-                            .where((hero) => hero.appearance!.gender == "Male")
-                            .length
-                        : superHeroesProvider.sortedSuperHeroes!
-                            .where(
-                                (hero) => hero.appearance!.gender == "Female")
-                            .length,
-                    itemBuilder: (context, index) {
-                      SuperHero superHero = segmentedBtnCtrl.maleIsSelected
+                      controller: _scrollController,
+                      physics: const BouncingScrollPhysics(),
+                      padding: const EdgeInsets.symmetric(horizontal: 3),
+                      itemCount: segmentedBtnCtrl.maleIsSelected
                           ? superHeroesProvider.sortedSuperHeroes!
                               .where(
                                   (hero) => hero.appearance!.gender == "Male")
-                              .toList()[index]
+                              .length
                           : superHeroesProvider.sortedSuperHeroes!
                               .where(
                                   (hero) => hero.appearance!.gender == "Female")
-                              .toList()[index];
+                              .length,
+                      itemBuilder: (context, index) {
+                        SuperHero superHero = segmentedBtnCtrl.maleIsSelected
+                            ? superHeroesProvider.sortedSuperHeroes!
+                                .where(
+                                    (hero) => hero.appearance!.gender == "Male")
+                                .toList()[index]
+                            : superHeroesProvider.sortedSuperHeroes!
+                                .where((hero) =>
+                                    hero.appearance!.gender == "Female")
+                                .toList()[index];
 
-                      return SuperHeroCard(
-                        superHero: superHero,
-                      );
-                    },
-                  ),
+                        return SuperHeroCard(
+                          superHero: superHero,
+                        );
+                      }),
                 ),
               ],
             ),

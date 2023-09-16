@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../../models/superhero.dart';
+import '../../utils/navigation.dart';
 import '../../utils/textstyle.dart';
+import '../screens/detailed_screen.dart';
 
 class SuperHeroCard extends StatelessWidget {
   const SuperHeroCard({
@@ -14,7 +16,10 @@ class SuperHeroCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: () {
+        navigateTo(context, SuperHeroDetailedPage(superHero: superHero,));
+
+      },
       leading: CircleAvatar(
         radius: 25,
         backgroundImage: NetworkImage(superHero.images!.lg!),
