@@ -17,7 +17,7 @@ class SuperHeroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        navigateTo(context, SuperHeroDetailedPage(superHero: superHero,));
+        navigateTo(context, SuperHeroDetailPage(superHero: superHero,));
 
       },
       leading: CircleAvatar(
