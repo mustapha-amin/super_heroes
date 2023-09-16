@@ -6,7 +6,7 @@ import 'package:super_heroes/models/superhero.dart';
 import 'package:super_heroes/utils/extensions.dart';
 import 'package:super_heroes/utils/navigation.dart';
 import 'package:super_heroes/utils/textstyle.dart';
-import 'package:super_heroes/views/screens/detailed_screen.dart';
+import 'package:super_heroes/views/screens/detail_screen.dart';
 import 'package:super_heroes/views/screens/search_screen.dart';
 import 'package:super_heroes/views/widgets/segmented_button.dart';
 import '../../providers/superhero_provider.dart';

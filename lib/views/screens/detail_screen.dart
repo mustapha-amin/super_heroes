@@ -127,7 +127,8 @@ class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
                               selectedColor: Colors.white,
                               shape: selectedOption == option
                                   ? RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20))
+                                      borderRadius: BorderRadius.circular(20),
+                                    )
                                   : const CircleBorder(),
                               label: selectedOption == option
                                   ? Row(

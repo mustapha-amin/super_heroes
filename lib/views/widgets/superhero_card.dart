@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../models/superhero.dart';
 import '../../utils/navigation.dart';
 import '../../utils/textstyle.dart';
-import '../screens/detailed_screen.dart';
+import '../screens/detail_screen.dart';
 
 class SuperHeroCard extends StatelessWidget {
   const SuperHeroCard({
