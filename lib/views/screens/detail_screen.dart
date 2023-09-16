@@ -5,15 +5,15 @@ import 'package:super_heroes/views/widgets/powerstats.dart';
 
 import '../../models/superhero.dart';
 
-class SuperHeroDetailedPage extends StatefulWidget {
+class SuperHeroDetailPage extends StatefulWidget {
   SuperHero? superHero;
-  SuperHeroDetailedPage({super.key, this.superHero});
+  SuperHeroDetailPage({super.key, this.superHero});
 
   @override
-  State<SuperHeroDetailedPage> createState() => _SuperHeroDetailedPageState();
+  State<SuperHeroDetailPage> createState() => _SuperHeroDetailPageState();
 }
 
-class _SuperHeroDetailedPageState extends State<SuperHeroDetailedPage> {
+class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
   List<String> options = [
     'PowerStats',
     'Appearance',
