@@ -58,7 +58,10 @@ class _SearchScreenState extends State<SearchScreen> {
               tag: 'search',
               child: SearchBar(
                   textStyle: MaterialStatePropertyAll(
-                    kTextStyle(14),
+                    kTextStyle(
+                      16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   trailing: [
                     Image.asset('assets/search.png'),

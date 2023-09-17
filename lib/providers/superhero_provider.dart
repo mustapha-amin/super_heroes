@@ -15,6 +15,8 @@ class SuperHeroesProvider extends ChangeNotifier {
 
   void fetchSuperheroes() async {
     toggleLoading();
+    superHeroes!.clear();
+    sortedSuperHeroes!.clear();
     superHeroes = await HttpService.getSuperheroes();
     sortedSuperHeroes!.addAll(superHeroes!);
     toggleLoading();

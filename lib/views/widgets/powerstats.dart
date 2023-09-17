@@ -6,11 +6,12 @@ class PowerStatsWidget extends StatelessWidget {
   String title;
   int value;
   IconData icon;
-  PowerStatsWidget(
-      {super.key,
-      required this.title,
-      required this.value,
-      required this.icon});
+  PowerStatsWidget({
+    super.key,
+    required this.title,
+    required this.value,
+    required this.icon,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -51,6 +52,9 @@ class PowerStatsWidget extends StatelessWidget {
                 style: kTextStyle(15),
               ),
             ],
+          ),
+          const SizedBox(
+            height: 2,
           )
         ],
       ),

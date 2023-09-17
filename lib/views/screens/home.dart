@@ -44,11 +44,11 @@ class _HomeState extends State<Home> {
   void _scrollListener() {
     if (_scrollController.offset > 100) {
       setState(() {
-        _fabVisible = false;
+        _fabVisible = true;
       });
     } else {
       setState(() {
-        _fabVisible = true;
+        _fabVisible = false;
       });
     }
   }
@@ -71,11 +71,14 @@ class _HomeState extends State<Home> {
           Hero(
             tag: 'search',
             child: GestureDetector(
-              onTap: () => navigateTo(
-                  context,
-                  SearchScreen(
-                    superHeroes: superHeroesProvider.superHeroes,
-                  )),
+              onTap: () => superHeroesProvider.superHeroes!.isEmpty
+                  ? null
+                  : navigateTo(
+                      context,
+                      SearchScreen(
+                        superHeroes: superHeroesProvider.superHeroes,
+                      ),
+                    ),
               child: Container(
                 width: 35,
                 margin: const EdgeInsets.only(right: 20),
@@ -184,38 +187,42 @@ class _HomeState extends State<Home> {
                   ],
                 ),
                 Expanded(
-                  child: ListView.builder(
-                      controller: _scrollController,
-                      physics: const BouncingScrollPhysics(),
-                      padding: const EdgeInsets.symmetric(horizontal: 3),
-                      itemCount: segmentedBtnCtrl.maleIsSelected
-                          ? superHeroesProvider.sortedSuperHeroes!
-                              .where(
-                                  (hero) => hero.appearance!.gender == "Male")
-                              .length
-                          : superHeroesProvider.sortedSuperHeroes!
-                              .where(
-                                  (hero) => hero.appearance!.gender == "Female")
-                              .length,
-                      itemBuilder: (context, index) {
-                        SuperHero superHero = segmentedBtnCtrl.maleIsSelected
+                  child: RefreshIndicator(
+                    onRefresh: () async =>
+                        superHeroesProvider.fetchSuperheroes(),
+                    child: ListView.builder(
+                        controller: _scrollController,
+                        physics: const BouncingScrollPhysics(),
+                        padding: const EdgeInsets.symmetric(horizontal: 3),
+                        itemCount: segmentedBtnCtrl.maleIsSelected
                             ? superHeroesProvider.sortedSuperHeroes!
                                 .where(
                                     (hero) => hero.appearance!.gender == "Male")
-                                .toList()[index]
+                                .length
                             : superHeroesProvider.sortedSuperHeroes!
                                 .where((hero) =>
                                     hero.appearance!.gender == "Female")
-                                .toList()[index];
+                                .length,
+                        itemBuilder: (context, index) {
+                          SuperHero superHero = segmentedBtnCtrl.maleIsSelected
+                              ? superHeroesProvider.sortedSuperHeroes!
+                                  .where((hero) =>
+                                      hero.appearance!.gender == "Male")
+                                  .toList()[index]
+                              : superHeroesProvider.sortedSuperHeroes!
+                                  .where((hero) =>
+                                      hero.appearance!.gender == "Female")
+                                  .toList()[index];
 
-                        return SuperHeroCard(
-                          superHero: superHero,
-                        );
-                      }),
+                          return SuperHeroCard(
+                            superHero: superHero,
+                          );
+                        }),
+                  ),
                 ),
               ],
             ),
-      floatingActionButton: _fabVisible
+      floatingActionButton:  !_fabVisible
           ? const SizedBox()
           : FloatingActionButton(
               elevation: 2,
