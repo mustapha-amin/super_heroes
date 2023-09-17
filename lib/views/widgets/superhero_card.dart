@@ -17,12 +17,16 @@ class SuperHeroCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        navigateTo(context, SuperHeroDetailPage(superHero: superHero,));
-
+        navigateTo(
+            context,
+            SuperHeroDetailPage(
+              superHero: superHero,
+            ));
       },
       leading: CircleAvatar(
         radius: 25,
         backgroundImage: NetworkImage(superHero.images!.lg!),
+        
       ),
       title: Text(
         superHero.name!,
