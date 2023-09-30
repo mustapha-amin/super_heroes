@@ -17,7 +17,7 @@ class AppearanceContainer extends StatelessWidget {
               AppearanceWidget(
                 title: "Gender",
                 value: appearance.gender!,
-                icon: Row(
+                icon: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Icon(Icons.male),
@@ -29,7 +29,7 @@ class AppearanceContainer extends StatelessWidget {
                 title: "Race",
                 value: appearance.race!,
                 icon: Image.asset(
-                  'assets/race.png',
+                  'assets/images/race.png',
                   color: Colors.black,
                 ),
               ),
@@ -37,7 +37,7 @@ class AppearanceContainer extends StatelessWidget {
                 title: "Height",
                 value: appearance.height![0],
                 icon: Image.asset(
-                  'assets/height.png',
+                  'assets/images/height.png',
                   color: Colors.black,
                 ),
               ),
@@ -52,7 +52,7 @@ class AppearanceContainer extends StatelessWidget {
                 title: "Weight",
                 value: appearance.weight![0],
                 icon: Image.asset(
-                  'assets/weight.png',
+                  'assets/images/weight.png',
                   color: Colors.black,
                 ),
               ),

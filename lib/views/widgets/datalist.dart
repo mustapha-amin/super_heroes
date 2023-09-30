@@ -30,7 +30,7 @@ class DataList extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Image.asset(
-                  'assets/arrow-right.png',
+                  'assets/images/arrow-right.png',
                   width: 18,
                 ),
                 titles!.isEmpty

@@ -80,7 +80,6 @@ class _SearchScreenState extends State<SearchScreen> {
                     kTextStyle(
                       16,
                       color: Colors.black,
-                      fontWeight: FontWeight.bold,
                     ),
                   ),
                   controller: controller,

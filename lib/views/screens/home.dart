@@ -108,14 +108,15 @@ class _HomeState extends State<Home> {
                       const Icon(
                         Icons.error_outline,
                         size: 70,
-                        color: Colors.red,
+                        color: Color(0xFFB18C27),
                       ),
                       const SizedBox(
                         height: 20,
                       ),
                       Text(
-                        "Unable to fetch data",
-                        style: kTextStyle(20),
+                        superHeroesProvider.errorMessage ?? "",
+                        textAlign: TextAlign.center,
+                        style: kTextStyle(17),
                       ),
                       TextButton.icon(
                         onPressed: () {

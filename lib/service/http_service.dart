@@ -1,8 +1,8 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:http/http.dart';
 import 'package:super_heroes/models/superhero.dart';
-import 'package:super_heroes/utils/exception.dart';
 
 const url = "https://akabab.github.io/superhero-api/api/all.json";
 
@@ -16,7 +16,8 @@ class HttpService {
       // log(response.body);
       return superheroes;
     } else {
-      throw const NetworkException();
+      throw const SocketException(
+          "Unable to fetch data\nPlease check your network settings");
     }
   }
 }
