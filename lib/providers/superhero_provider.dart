@@ -7,6 +7,9 @@ class SuperHeroesProvider extends ChangeNotifier {
   List<SuperHero>? superHeroes = [];
   List<SuperHero>? sortedSuperHeroes = [];
   bool isLoading = false;
+  String? errorMessage;
+
+  bool get errorMessageIsEmpty => errorMessage == "";
 
   void toggleLoading() {
     isLoading = !isLoading;
@@ -15,10 +18,16 @@ class SuperHeroesProvider extends ChangeNotifier {
 
   void fetchSuperheroes() async {
     toggleLoading();
+    errorMessage = null;
     superHeroes!.clear();
     sortedSuperHeroes!.clear();
-    superHeroes = await HttpService.getSuperheroes();
-    sortedSuperHeroes!.addAll(superHeroes!);
+    try {
+      superHeroes = await HttpService.getSuperheroes();
+      sortedSuperHeroes!.addAll(superHeroes!);
+      errorMessage = "";
+    } catch (e) {
+      errorMessage = "Unable to fetch data";
+    }
     toggleLoading();
   }
 

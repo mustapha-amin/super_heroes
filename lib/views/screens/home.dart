@@ -99,130 +99,164 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: superHeroesProvider.isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Column(
-              children: [
-                Column(
-                  children: [
-                    SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Row(
-                          children: [
-                            ...categories.map(
-                              (category) => Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 3),
-                                child: ChoiceChip(
-                                  elevation: 3,
-                                  side: BorderSide(
-                                    width: chipIndex ==
-                                            categories.indexOf(category)
-                                        ? 1
-                                        : 0,
-                                    color: const Color(0xFFBFBFBF),
-                                  ),
-                                  selectedColor: const Color(0xFFFFF1CB),
-                                  backgroundColor: Colors.white,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24),
-                                  ),
-                                  label: Text(category),
-                                  selected:
-                                      chipIndex == categories.indexOf(category),
-                                  onSelected: (selected) {
-                                    setState(() {
-                                      chipIndex = selected
-                                          ? categories.indexOf(category)
-                                          : chipIndex;
-                                    });
-
-                                    switch (chipIndex) {
-                                      case 0:
-                                        superHeroesProvider.sort(
-                                            superHeroesProvider.superHeroes!);
-                                        break;
-                                      case 1:
-                                        superHeroesProvider.sort(
-                                            superHeroesProvider
-                                                .superHeroes!
-                                                .where((hero) =>
-                                                    hero.biography!.publisher ==
-                                                    'Marvel Comics')
-                                                .toList());
-                                        break;
-                                      case 2:
-                                        superHeroesProvider.sort(
-                                            superHeroesProvider
-                                                .superHeroes!
-                                                .where((hero) =>
-                                                    hero.biography!.publisher ==
-                                                    'DC Comics')
-                                                .toList());
-                                        break;
-                                      default:
-                                        superHeroesProvider.sort(
-                                            superHeroesProvider
-                                                .superHeroes!
-                                                .where((hero) =>
-                                                    hero.biography!.publisher ==
-                                                    'Dark Horse Comics')
-                                                .toList());
-                                    }
-                                  },
-                                ),
-                              ),
-                            )
-                          ],
+          ? const Center(child: CircularProgressIndicator())
+          : !superHeroesProvider.errorMessageIsEmpty
+              ? Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Icon(
+                        Icons.error_outline,
+                        size: 70,
+                        color: Colors.red,
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Unable to fetch data",
+                        style: kTextStyle(20),
+                      ),
+                      TextButton.icon(
+                        onPressed: () {
+                          superHeroesProvider.fetchSuperheroes();
+                        },
+                        icon: const Icon(Icons.refresh),
+                        label: Text(
+                          "Refresh",
+                          style: kTextStyle(
+                            18,
+                            color: Theme.of(context).primaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
+                      )
+                    ],
+                  ),
+                )
+              : Column(
+                  children: [
+                    Column(
+                      children: [
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              children: [
+                                ...categories.map(
+                                  (category) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 3),
+                                    child: ChoiceChip(
+                                      elevation: 3,
+                                      side: BorderSide(
+                                        width: chipIndex ==
+                                                categories.indexOf(category)
+                                            ? 1
+                                            : 0,
+                                        color: const Color(0xFFBFBFBF),
+                                      ),
+                                      selectedColor: const Color(0xFFFFF1CB),
+                                      backgroundColor: Colors.white,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(24),
+                                      ),
+                                      label: Text(category),
+                                      selected: chipIndex ==
+                                          categories.indexOf(category),
+                                      onSelected: (selected) {
+                                        setState(() {
+                                          chipIndex = selected
+                                              ? categories.indexOf(category)
+                                              : chipIndex;
+                                        });
+
+                                        switch (chipIndex) {
+                                          case 0:
+                                            superHeroesProvider.sort(
+                                                superHeroesProvider
+                                                    .superHeroes!);
+                                            break;
+                                          case 1:
+                                            superHeroesProvider.sort(
+                                                superHeroesProvider.superHeroes!
+                                                    .where((hero) =>
+                                                        hero.biography!
+                                                            .publisher ==
+                                                        'Marvel Comics')
+                                                    .toList());
+                                            break;
+                                          case 2:
+                                            superHeroesProvider.sort(
+                                                superHeroesProvider.superHeroes!
+                                                    .where((hero) =>
+                                                        hero.biography!
+                                                            .publisher ==
+                                                        'DC Comics')
+                                                    .toList());
+                                            break;
+                                          default:
+                                            superHeroesProvider.sort(
+                                                superHeroesProvider.superHeroes!
+                                                    .where((hero) =>
+                                                        hero.biography!
+                                                            .publisher ==
+                                                        'Dark Horse Comics')
+                                                    .toList());
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        const CustomSegmentedButton()
+                      ],
+                    ),
+                    Expanded(
+                      child: RefreshIndicator(
+                        onRefresh: () async =>
+                            superHeroesProvider.fetchSuperheroes(),
+                        child: ListView.builder(
+                            controller: _scrollController,
+                            physics: const BouncingScrollPhysics(),
+                            padding: const EdgeInsets.symmetric(horizontal: 3),
+                            itemCount: segmentedBtnCtrl.maleIsSelected
+                                ? superHeroesProvider.sortedSuperHeroes!
+                                    .where((hero) =>
+                                        hero.appearance!.gender == "Male")
+                                    .length
+                                : superHeroesProvider.sortedSuperHeroes!
+                                    .where((hero) =>
+                                        hero.appearance!.gender == "Female")
+                                    .length,
+                            itemBuilder: (context, index) {
+                              SuperHero superHero = segmentedBtnCtrl
+                                      .maleIsSelected
+                                  ? superHeroesProvider.sortedSuperHeroes!
+                                      .where((hero) =>
+                                          hero.appearance!.gender == "Male")
+                                      .toList()[index]
+                                  : superHeroesProvider.sortedSuperHeroes!
+                                      .where((hero) =>
+                                          hero.appearance!.gender == "Female")
+                                      .toList()[index];
+
+                              return SuperHeroCard(
+                                superHero: superHero,
+                              );
+                            }),
                       ),
                     ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    const CustomSegmentedButton()
                   ],
                 ),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: () async =>
-                        superHeroesProvider.fetchSuperheroes(),
-                    child: ListView.builder(
-                        controller: _scrollController,
-                        physics: const BouncingScrollPhysics(),
-                        padding: const EdgeInsets.symmetric(horizontal: 3),
-                        itemCount: segmentedBtnCtrl.maleIsSelected
-                            ? superHeroesProvider.sortedSuperHeroes!
-                                .where(
-                                    (hero) => hero.appearance!.gender == "Male")
-                                .length
-                            : superHeroesProvider.sortedSuperHeroes!
-                                .where((hero) =>
-                                    hero.appearance!.gender == "Female")
-                                .length,
-                        itemBuilder: (context, index) {
-                          SuperHero superHero = segmentedBtnCtrl.maleIsSelected
-                              ? superHeroesProvider.sortedSuperHeroes!
-                                  .where((hero) =>
-                                      hero.appearance!.gender == "Male")
-                                  .toList()[index]
-                              : superHeroesProvider.sortedSuperHeroes!
-                                  .where((hero) =>
-                                      hero.appearance!.gender == "Female")
-                                  .toList()[index];
-
-                          return SuperHeroCard(
-                            superHero: superHero,
-                          );
-                        }),
-                  ),
-                ),
-              ],
-            ),
-      floatingActionButton:  !_fabVisible
+      floatingActionButton: !_fabVisible
           ? const SizedBox()
           : FloatingActionButton(
               elevation: 2,
