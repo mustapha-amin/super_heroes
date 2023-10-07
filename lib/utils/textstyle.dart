@@ -6,9 +6,9 @@ TextStyle kTextStyle(
   FontWeight? fontWeight,
   Color? color,
 }) {
-  return GoogleFonts.lato(
-    fontSize: size,
-    fontWeight: fontWeight ?? FontWeight.normal,
-    color: color ?? Colors.black,
-  );
+  return TextStyle(
+      fontSize: size,
+      fontWeight: fontWeight ?? FontWeight.normal,
+      color: color ?? Colors.black,
+      fontFamily: 'Montserrat');
 }
