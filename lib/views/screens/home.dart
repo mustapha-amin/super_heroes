@@ -89,7 +89,7 @@ class _HomeState extends State<Home> {
                 ),
                 child: Center(
                   child: Image.asset(
-                    'assets/search.png',
+                    'assets/images/search.png',
                     width: 25,
                   ),
                 ),
