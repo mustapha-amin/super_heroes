@@ -50,13 +50,11 @@ class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
           setState(() {
             isLongPressed = true;
           });
-          log(isLongPressed.toString());
         },
         onLongPressEnd: (_) {
           setState(() {
             isLongPressed = false;
           });
-          log(isLongPressed.toString());
         },
         child: Container(
           width: double.infinity,
@@ -73,6 +71,7 @@ class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
           child: isLongPressed
               ? const SizedBox()
               : SingleChildScrollView(
+                  physics: const NeverScrollableScrollPhysics(),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -91,8 +90,8 @@ class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
                                 child: Container(
                                   margin: const EdgeInsets.only(left: 14),
                                   padding: const EdgeInsets.only(right: 2),
-                                  width: 24,
-                                  height: 24,
+                                  width: 28,
+                                  height: 28,
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                         color: Colors.white, width: 2),
@@ -125,7 +124,7 @@ class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
                                     Text(
                                       widget.superHero!.name!,
                                       style: kTextStyle(
-                                        28,
+                                        22,
                                         fontWeight: FontWeight.bold,
                                         color: const Color(0xFFB18C27),
                                       ),
@@ -181,7 +180,7 @@ class _SuperHeroDetailPageState extends State<SuperHeroDetailPage> {
                                   label: selectedOption == option
                                       ? Text(
                                           option,
-                                          style: kTextStyle(13),
+                                          style: kTextStyle(10),
                                         )
                                       : SizedBox(
                                           height: 18,

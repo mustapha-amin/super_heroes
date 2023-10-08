@@ -33,7 +33,7 @@ class PowerStatsWidget extends StatelessWidget {
           Icon(icon),
           Text(
             title,
-            style: kTextStyle(16),
+            style: kTextStyle(13),
           ),
           Stack(
             alignment: Alignment.center,
@@ -49,7 +49,7 @@ class PowerStatsWidget extends StatelessWidget {
               ),
               Text(
                 '$value%',
-                style: kTextStyle(15),
+                style: kTextStyle(12),
               ),
             ],
           ),

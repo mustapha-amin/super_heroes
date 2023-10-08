@@ -6,7 +6,11 @@ class AppearanceWidget extends StatelessWidget {
   String title;
   String value;
   Widget icon;
-  AppearanceWidget({super.key, required this.title, required this.value, required this.icon});
+  AppearanceWidget(
+      {super.key,
+      required this.title,
+      required this.value,
+      required this.icon});
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +31,12 @@ class AppearanceWidget extends StatelessWidget {
         children: [
           Text(
             title,
-            style: kTextStyle(16),
+            style: kTextStyle(13),
           ),
           icon,
           Text(
             value,
-            style: kTextStyle(16),
+            style: kTextStyle(12),
           )
         ],
       ),

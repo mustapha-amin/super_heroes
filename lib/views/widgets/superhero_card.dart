@@ -26,16 +26,15 @@ class SuperHeroCard extends StatelessWidget {
       leading: CircleAvatar(
         radius: 25,
         backgroundImage: NetworkImage(superHero.images!.lg!),
-        
       ),
       title: Text(
         superHero.name!,
-        style: kTextStyle(20, fontWeight: FontWeight.bold),
+        style: kTextStyle(14, fontWeight: FontWeight.bold),
       ),
       subtitle: Text(superHero.biography!.publisher ?? ''),
       trailing: const Icon(
         Icons.info_outline_rounded,
-        color: Colors.grey,
+        color: Color.fromARGB(255, 36, 33, 33),
       ),
     );
   }

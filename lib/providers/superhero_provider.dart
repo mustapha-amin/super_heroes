@@ -9,7 +9,7 @@ class SuperHeroesProvider extends ChangeNotifier {
   List<SuperHero>? superHeroes = [];
   List<SuperHero>? sortedSuperHeroes = [];
   bool isLoading = false;
-  String? errorMessage;
+  String? errorMessage = "";
 
   bool get errorMessageIsEmpty => errorMessage == "";
 

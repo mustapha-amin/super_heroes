@@ -44,7 +44,7 @@ class _SearchScreenState extends State<SearchScreen> {
         foregroundColor: const Color(0xFFB18C27),
         title: Text(
           "SuperHero",
-          style: kTextStyle(28,
+          style: kTextStyle(20,
               fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
         ),
         centerTitle: true,
@@ -59,12 +59,12 @@ class _SearchScreenState extends State<SearchScreen> {
               child: SearchBar(
                   textStyle: MaterialStatePropertyAll(
                     kTextStyle(
-                      16,
+                      12,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   trailing: [
-                    Image.asset('assets/search.png'),
+                    Image.asset('assets/images/search.png'),
                   ],
                   backgroundColor:
                       const MaterialStatePropertyAll(Color(0xFFFFF1CB)),
@@ -78,7 +78,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   hintText: "Search Superhero",
                   hintStyle: MaterialStatePropertyAll(
                     kTextStyle(
-                      16,
+                      12,
                       color: Colors.black,
                     ),
                   ),

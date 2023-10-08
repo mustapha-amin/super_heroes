@@ -77,7 +77,7 @@ class SuperHeroData extends StatelessWidget {
                           child: DataList.noTitle(
                             widget.superHero!.connections!.relatives!
                                 .split(', '),
-                            "Group Affiliation",
+                            "Relatives",
                           ),
                         ),
                       ),

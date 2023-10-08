@@ -64,7 +64,7 @@ class _HomeState extends State<Home> {
         elevation: 0,
         title: Text(
           "SuperHeroes",
-          style: kTextStyle(30,
+          style: kTextStyle(25,
               fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
         ),
         actions: [
@@ -116,7 +116,7 @@ class _HomeState extends State<Home> {
                       Text(
                         superHeroesProvider.errorMessage ?? "",
                         textAlign: TextAlign.center,
-                        style: kTextStyle(17),
+                        style: kTextStyle(14),
                       ),
                       TextButton.icon(
                         onPressed: () {

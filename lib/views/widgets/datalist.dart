@@ -20,7 +20,7 @@ class DataList extends StatelessWidget {
         heading != null
             ? Text(
                 heading!,
-                style: kTextStyle(22, fontWeight: FontWeight.bold),
+                style: kTextStyle(19, fontWeight: FontWeight.bold),
               )
             : const SizedBox(),
         ...values!.map(
@@ -37,19 +37,19 @@ class DataList extends StatelessWidget {
                     ? const SizedBox()
                     : Text(
                         '${titles![values!.indexOf(e)]}: ',
-                        style: kTextStyle(14, fontWeight: FontWeight.bold),
+                        style: kTextStyle(13, fontWeight: FontWeight.bold),
                       ),
                 e.runtimeType == (List<String>)
                     ? Expanded(
                         child: Text(
                           e.join(' '),
-                          style: kTextStyle(14),
+                          style: kTextStyle(12),
                         ),
                       )
                     : Expanded(
                         child: Text(
                           e,
-                          style: kTextStyle(14),
+                          style: kTextStyle(12),
                         ),
                       ),
               ],

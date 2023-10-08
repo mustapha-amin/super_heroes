@@ -48,7 +48,7 @@ class CustomSegmentedButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       "Male",
-                      style: kTextStyle(15, fontWeight: FontWeight.bold),
+                      style: kTextStyle(12, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
@@ -80,7 +80,7 @@ class CustomSegmentedButton extends StatelessWidget {
                   child: Center(
                     child: Text(
                       "Female",
-                      style: kTextStyle(15, fontWeight: FontWeight.bold),
+                      style: kTextStyle(12, fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),
