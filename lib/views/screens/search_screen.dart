@@ -53,7 +53,7 @@ class _SearchScreenState extends State<SearchScreen> {
         children: [
           SizedBox(
             width: size.width * .9,
-            height: 40,
+            height: 38,
             child: Hero(
               tag: 'search',
               child: SearchBar(
