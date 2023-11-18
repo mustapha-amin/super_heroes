@@ -90,11 +90,11 @@ class _SearchScreenState extends State<SearchScreen> {
           Expanded(
             child: ListView.builder(
               physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 15),
+              padding: const EdgeInsets. symmetric(horizontal: 10, vertical: 15),
               itemCount: searchResult.length,
               itemBuilder: (context, index) {
                 return SuperHeroCard(superHero: searchResult[index]);
-              },
+              }, 
             ),
           ),
         ],
