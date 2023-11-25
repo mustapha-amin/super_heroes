@@ -42,14 +42,11 @@ class _SearchScreenState extends State<SearchScreen> {
     return Scaffold(
       appBar: AppBar(
         foregroundColor: const Color(0xFFB18C27),
-        title: Hero(
-          tag: "hero",
-          child: Text(
+        title: Text(
             "SuperHero",
             style: kTextStyle(20,
                 fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
           ),
-        ),
         centerTitle: true,
       ),
       body: Column(

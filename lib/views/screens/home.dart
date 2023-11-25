@@ -62,14 +62,11 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF6F6F6),
         elevation: 0,
-        title: Hero(
-          tag: "hero",
-          child: Text(
+        title: Text(
             "SuperHeroes",
             style: kTextStyle(25,
                 fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
-          ),
-        ),
+          ),    
         actions: [
           Hero(
             tag: 'search',
