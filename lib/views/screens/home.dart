@@ -62,10 +62,13 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         backgroundColor: const Color(0xFFF6F6F6),
         elevation: 0,
-        title: Text(
-          "SuperHeroes",
-          style: kTextStyle(25,
-              fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
+        title: Hero(
+          tag: "hero",
+          child: Text(
+            "SuperHeroes",
+            style: kTextStyle(25,
+                fontWeight: FontWeight.bold, color: const Color(0xFFB18C27)),
+          ),
         ),
         actions: [
           Hero(
@@ -99,7 +102,10 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: superHeroesProvider.isLoading
-          ? const Center(child: CircularProgressIndicator())
+          ? const Center(
+              child: CircularProgressIndicator(
+              color: Color(0xFFB18C27),
+            ))
           : !superHeroesProvider.errorMessageIsEmpty
               ? Center(
                   child: Column(
@@ -119,15 +125,21 @@ class _HomeState extends State<Home> {
                         style: kTextStyle(14),
                       ),
                       TextButton.icon(
+                        style: TextButton.styleFrom(
+                          foregroundColor: Color(0xFFB18C27),
+                        ),
                         onPressed: () {
                           superHeroesProvider.fetchSuperheroes();
                         },
-                        icon: const Icon(Icons.refresh),
+                        icon: const Icon(
+                          Icons.refresh,
+                          color: Color(0xFFB18C27),
+                        ),
                         label: Text(
                           "Refresh",
                           style: kTextStyle(
                             18,
-                            color: Theme.of(context).primaryColor,
+                            color: Color(0xFFB18C27),
                             fontWeight: FontWeight.bold,
                           ),
                         ),
